@@ -34,14 +34,30 @@ def userInput():
 
     return userChoice, userMessage, userKey
 
+def encode(string, shift):
+    shiftedString = ""
+    string = string.lower()
+    for char in string:
+        if char == ' ':
+            shiftedString = shiftedString + ' '
+            continue
+
+        shiftedString = shiftedString + chr(ord(char) + shift)
+
+    return shiftedString
+
 try:
     running = True
     welcomeMessage()
     while (running == True):
-        userData = userInput()
-        print ("\n" + "userChoice = " + userData[0])
-        print ("userMessage = " + userData[1])
-        print ("userKey = " + str(userData[2]))
+        userChoice, userMessage, userKey = userInput()
+        print ("\n" + "userChoice = " + userChoice)
+        print ("userMessage = " + userMessage)
+        print ("userKey = " + str(userKey))
+
+        if userChoice == "ENCODE" :
+            encryptedString = encode(userMessage, userKey)
+            print(f"Your encrypted text is: {encryptedString}")
 
         exitApplication = input ("\n" + "Would you like to restart the application? ")
         exitApplication = exitApplication.upper()
