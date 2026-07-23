@@ -40,12 +40,22 @@ def userInput():
 def encode(string, shift):
     shiftedString = ""
     string = string.lower()
+
     for char in string:
         if char == ' ':
             shiftedString = shiftedString + ' '
             continue
 
-        shiftedString = shiftedString + chr(ord(char) + shift)
+        else:
+            shiftNumber = ord(char)
+
+            if (shiftNumber >= 97 and shiftNumber <= 122):
+                shiftNumber = shiftNumber + shift
+
+                while shiftNumber > 122:
+                    shiftNumber = shiftNumber - 26
+
+            shiftedString = shiftedString + chr(shiftNumber)
 
     return shiftedString
 
@@ -58,16 +68,24 @@ def decode(userMessage, userKey):
             userMessageUnicode.append(character)
 
         else:
-            userMessageUnicode.append(ord(character) - userKey)
+            userKeyNumber = ord(character)
+
+            if (userKeyNumber >= 97 and userKeyNumber <= 122):
+                userKeyNumber = userKeyNumber - userKey
+
+                while userKeyNumber < 97:
+                    userKeyNumber = userKeyNumber + 26
+
+            userMessageUnicode.append(userKeyNumber)    
 
     userMessage = ""
 
-    for number in userMessageUnicode:
-        if (number == " "):
-            userMessage = userMessage + number
+    for character in userMessageUnicode:
+        if (character == " "):
+            userMessage = userMessage + character
             
         else:
-            userMessage = userMessage + chr(number)
+            userMessage = userMessage + chr(character)
 
     return userMessage
 
